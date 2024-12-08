@@ -198,7 +198,7 @@ async function main() {
 
     const processPrinter = setInterval(async () => {
       terminalBarUI.update(processIndex);
-      console.log(`jarayon: ${processIndex}/${maxProcess}. ${unsortedArr.length} mavjud IP-larni oling.`);
+      // console.log(`process: ${processIndex}/${maxProcess}. va olgan ${unsortedArr.length} available IPs.`);
     }, 1000 * 5);
 
     for (let i = 0; i < filteredIPs.length; i++) {
@@ -219,9 +219,9 @@ async function main() {
             unsortedArr.push({ ip, latency: avgLatency });
           }
           else {
-            if (avgLatency < THREASHOLD * 1.5) {
-                console.warn(`${ip} ning kechikishi ${avgLatency} bo'lsa-da, men uni saqlamayman.`);
-            }
+            // if (avgLatency < THREASHOLD * 1.5) {
+            //     console.warn(`although ${ip}'s latency is ${avgLatency}, I don't keep it.`);
+            // }
           }
           countOfBeingProcess--;
         }).catch(function (e) {
@@ -327,13 +327,13 @@ export async function extractIPRanges(shortNation) {
   shortNation = shortNation.toUpperCase();
   console.log('IP diapazonlarini mamlakat bilan ajratish: ' + shortNation);
   if (!ipDB) {
-    console.log("Ushbu qadam katta IP DB faylini yuklab olishdir, ehtimol siz 2-3 daqiqa kutasiz. Agar u 3 daqiqadan ortiq ishlayotgan bo'lsa, uni to'xtatib, yana urinib ko'ring. ");
-    var response = await fetch(GEO_IP_RANGES_URL, httpSettings);
+    // console.log('This step is downloading a large IP DB file, you will probably wait for 2-3 minutes. In case it is running excess 3 minites, please stop it and then try again. ');
+    // var response = await fetch(GEO_IP_RANGES_URL, httpSettings);
 
-    const body = await response.text();
-    ipDB = body.split('\n');
+    // const body = await response.text();
+    // ipDB = body.split('\n');
 
-    // lokal faylni oʻqish uchun: await bilan GEO_IP_RANGES_URL.
+    // to read local file : GEO_IP_RANGES_URL with await.
     ipDB = (await readTextFile(GEO_IP_RANGES_URL)).split('\n');
   }
 
